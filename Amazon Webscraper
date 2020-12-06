@@ -1,0 +1,15 @@
+from requests_html
+import HTMLSession
+urls = ['https://www.amazon.com.au/STM-Ultra-Protective-Apple-Pencil-Storage/dp/B07L2RJV45/ref=sr_1_5?crid=36TSTZ3V92G64&dchild=1&keywords=ipad+pro+11+inch&qid=1606883691&sprefix=i+pad+,aps,1192&sr=8-5',
+        'https://www.amazon.com.au/tomtoc-Portfolio-10-2-inch-Organizer-Business/dp/B07VWNZQ9Q/ref=sr_1_7?crid=36TSTZ3V92G64&dchild=1&keywords=ipad+pro+11+inch&qid=1606883691&sprefix=i+pad+,aps,1192&sr=8-7',
+        'https://www.amazon.com.au/iPad-Keyboard-Case-Detachable-Wireless/dp/B07YFT5GFF/ref=sr_1_47?crid=36TSTZ3V92G64&dchild=1&keywords=ipad+pro+11+inch&qid=1606883691&sprefix=i+pad+,aps,1192&sr=8-47']
+def getPrice(url): s = HTMLSession() r = s.get(url) r.html.render(timeout = 0)
+product = {
+    'title': r.html.xpath('//*[@id="productTitle"]', first = True).text,
+    'price': r.html.xpath('//*[@id="priceblock_ourprice"]', first = True).text
+}
+print(product) return product
+
+casePrices = []
+for url in urls: casePrices.append(getPrice(url))
+print(len(casePrices))
